@@ -11,5 +11,7 @@ typedef struct Neurone {
     int seuil;             // Seuil d'activation
     int n_entrees;         // Nombre d'entrées
 } Neurone;
+Neurone* InitNeur(int n_entrees, int *poids, int seuil);
+int Outneurone(Neurone *neurone, int *entrees);
 
 #endif //UNTITLED5_NOEUD_H
