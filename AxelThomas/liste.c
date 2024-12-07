@@ -1,12 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "liste.h"
 
-// Définition de la structure Liste
-typedef struct Liste {
-    void *data;            // Pointeur générique pour stocker tout type de valeur
-    struct Liste *next;    // Pointeur vers l'élément suivant
-} Liste;
+
 
 // Fonction pour créer un nouveau nœud
 Liste* create_ele(void *data, size_t data_size) {
@@ -40,4 +37,22 @@ void free_list(Liste *head) {
         free(temp->data); // Libère la mémoire de la donnée
         free(temp);       // Libère l'élément
     }
+}
+
+// Fonction pour compter le nombre d'éléments dans une liste chaînée
+int count_list(Liste *head) {
+    int count = 0;
+    while (head != NULL) {
+        count++;
+        head = head->next;
+    }
+    return count;
+}
+
+int count_entries(int *entries) {
+    int count = 0;
+    while (entries[count] != 0) { // Supposez que 0 indique la fin des entrées
+        count++;
+    }
+    return count;
 }
