@@ -1,0 +1,3 @@
+/Users/davidpereira/Documents/TC3/LOP21/projetlo21/DavidCorentin/cmake-build-debug/CMakeFiles/DavidCorentin.dir
+/Users/davidpereira/Documents/TC3/LOP21/projetlo21/DavidCorentin/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/davidpereira/Documents/TC3/LOP21/projetlo21/DavidCorentin/cmake-build-debug/CMakeFiles/rebuild_cache.dir
