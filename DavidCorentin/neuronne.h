@@ -16,7 +16,7 @@ typedef struct Neuronne {
 
 
 // Fonction pour initialiser un neurone avec une liste de poids et un biais
-void InitNeur(Neuronne* neuronne, int nb_entrées, int* liste_poids, int biais);
+Neuronne* InitNeur(Neuronne* neuronne, int nb_entrées, int* liste_poids, int biais);
 
 // Fonction pour calculer la sortie du neurone
 int Outneurone(Neuronne* neuronne, int* entrées);

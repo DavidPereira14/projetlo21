@@ -1,24 +1,11 @@
 #include "neuronne.h"
+#include "création_liste.h"
 #include <stdio.h>
 #include <stdlib.h>
 
 // Fonction pour initialiser un neurone avec une liste de poids et un biais
-void InitNeur(Neuronne* neuronne, int nb_entrées, int* liste_poids, int biais) {
-    neuronne->biais = biais;
-    neuronne->nbEntrees = nb_entrées;
-    neuronne->poids = NULL;
-
-    // Créer la liste chaînée des poids à partir de la liste fournie
-    for (int i = 0; i < nb_entrées; i++) {
-        Poids* nouveauPoids = (Poids*)malloc(sizeof(Poids));
-        if (nouveauPoids == NULL) {
-            printf("Erreur d'allocation de mémoire pour les poids.\n");
-            return;
-        }
-        nouveauPoids->valeur = liste_poids[i];
-        nouveauPoids->suivant = neuronne->poids; // Ajouter le poids à la tête de la liste
-        neuronne->poids = nouveauPoids;
-    }
+Neuronne* InitNeur(int n_entrees, Liste *poids, int seuil) {
+  
 }
 
 // Fonction pour calculer la sortie du neurone

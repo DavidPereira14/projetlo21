@@ -6,4 +6,8 @@ set(CMAKE_C_STANDARD 11)
 add_executable(DavidCorentin main.c
         couche.h
         couche.c
-        neuronne.c)
+        neuronne.c
+        neuronne.h
+        création_liste.c
+        création_liste.h
+)
