@@ -1,1 +1,1 @@
-CMakeLists.txt not found in /Users/davidpereira/Documents/TC3/LOP21/projetlo21 Select CMakeLists.txt
+CMakeLists.txt not found in C:\Users\th0m\OneDrive\Documents\GitHub\projetlo21 Select CMakeLists.txt

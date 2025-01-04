@@ -114,7 +114,7 @@ Neurone* ReseauNot(){
 }
 
 // Fonction pour construire le réseau multi-couches (A ET (NON B) ET C) OU (A ET (NON C))
-Liste* CreerResNeurMulticouches(int nombre_entrées) {
+Liste* CreerResNeurMulticouches(int nombre_entrees) {
     Liste *reseau = NULL;
     Liste *couche=NULL;
     // Couche 1 : Neurones NOT pour B et C
