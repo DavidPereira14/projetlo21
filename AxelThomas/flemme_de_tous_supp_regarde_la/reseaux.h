@@ -18,7 +18,7 @@ Liste* PropagationAvant(Liste *reseau, Liste *entrees);
 Neurone* ReseauEt(int nombre_entre);
 Neurone* ReseauOu(int nombre_entre);
 Neurone* ReseauNot();
-Liste* CreerResNeurMulticouches(int nombre_entrees);
+Liste* CreerResNeurMulticouches();
 
 
 #endif //UNTITLED5_RESEAUX_H
