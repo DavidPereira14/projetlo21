@@ -114,30 +114,27 @@ Neurone* ReseauNot(){
 }
 
 // Fonction pour construire le réseau multi-couches (A ET (NON B) ET C) OU (A ET (NON C))
-Liste* CreerResNeurMulticouches(int nombre_entrees) {
-    Liste *reseau = NULL;
-    Liste *couche=NULL;
-    // Couche 1 : Neurones NOT pour B et C
-    Neurone *neuroneNotB = ReseauNot();  // Neurone pour NOT B
-    Neurone *neuroneNotC = ReseauNot();  // Neurone pour NOT C
-    add_queue(&couche, neuroneNotB, sizeof(Neurone));
-    add_queue(&couche, neuroneNotC, sizeof(Neurone));
+Liste* CreerResNeurMulticouches() {
+    // Définition du nombre de couches et des neurones par couche
+    int nombre_couches = 3;
+    Liste *neurones_par_couche = NULL;
+    int couche1_neurones = 2; // 2 neurones dans la première couche (NOT B, NOT C)
+    int couche2_neurones = 2; // 2 neurones dans la deuxième couche (AND)
+    int couche3_neurones = 1; // 1 neurone dans la troisième couche (OR)
+    add_queue(&neurones_par_couche, &couche1_neurones, sizeof(int));
+    add_queue(&neurones_par_couche, &couche2_neurones, sizeof(int));
+    add_queue(&neurones_par_couche, &couche3_neurones, sizeof(int));
 
-    add_queue(&reseau,couche, sizeof(Liste));
-    couche=NULL;
-    // Couche 2 : Neurones AND pour (A ET (NON B) ET C) et (A ET (NON C))
-    Neurone *neuroneEt1 = ReseauEt(3);  // Neurone pour (A ET (NON B) ET C)
-    Neurone *neuroneEt2 = ReseauEt(3);  // Neurone pour (A ET (NON C))
-    add_queue(&couche, neuroneEt1, sizeof(Neurone));
-    add_queue(&couche, neuroneEt2, sizeof(Neurone));
-
-    add_queue(&reseau,couche, sizeof(Liste));
-    couche=NULL;
-    // Couche 3 : Neurone OR pour (A ET (NON B) ET C) OU (A ET (NON C))
-    Neurone *neuroneOr = ReseauOu(2);   // Neurone OR avec 2 entrées
-    add_queue(&couche, neuroneOr, sizeof(Neurone));
-    add_queue(&reseau,couche, sizeof(Liste));
-
+    // Définition des seuils pour chaque couche
+    Liste *seuils = NULL;
+    int seuil1 = 1; // Seuil pour la première couche
+    int seuil2 = 1; // Seuil pour la deuxième couche
+    int seuil3 = 1; // Seuil pour la troisième couche
+    add_queue(&seuils, &seuil1, sizeof(int));
+    add_queue(&seuils, &seuil2, sizeof(int));
+    add_queue(&seuils, &seuil3, sizeof(int));
+    // Création du réseau multi-couches
+    Liste *reseau = CreerResNeur(nombre_couches, neurones_par_couche, seuils, 3);
 
     return reseau;
 }
