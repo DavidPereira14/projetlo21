@@ -28,16 +28,7 @@ void add_queue(Liste **head, void *data, size_t data_size) {
     }
 }
 
-// Fonction pour libérer la mémoire d'une liste
-void free_list(Liste *head) {
-    Liste *temp;
-    while (head != NULL) {
-        temp = head;
-        head = head->next;
-        free(temp->data); // Libère la mémoire de la donnée
-        free(temp);       // Libère l'élément
-    }
-}
+
 
 // Fonction pour compter le nombre d'éléments dans une liste chaînée
 int count_list(Liste *head) {
