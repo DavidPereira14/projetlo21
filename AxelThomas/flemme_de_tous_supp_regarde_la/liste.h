@@ -15,8 +15,6 @@ Liste* create_ele(void *data, size_t data_size);
 
 void add_queue(Liste **head, void *data, size_t data_size);
 
-void free_list(Liste *head);
-
 int count_list(Liste *head);
 
 #endif //UNTITLED5_LISTE_H
