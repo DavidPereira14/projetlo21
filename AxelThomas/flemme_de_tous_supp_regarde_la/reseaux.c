@@ -112,32 +112,129 @@ Neurone* ReseauNot(){
     add_queue(&poids,&poid, sizeof(int));
     return InitNeur(1,poids,0);
 }
+// Fonction pour afficher les détails d'un neurone
+void afficher_neurone(Neurone *neurone) {
+    if (neurone == NULL) {
+        printf("Le neurone est NULL.\n");
+        return;
+    }
+
+    printf("Neurone:\n");
+    printf("  Nombre d'entrées : %d\n", neurone->n_entrees);
+    printf("  Seuil : %d\n", neurone->seuil);
+
+    printf("  Poids : ");
+    Liste *poids = neurone->poids;
+    while (poids != NULL) {
+        printf("%d ", *(int *)poids->data); // Supposant que les poids sont des entiers
+        poids = poids->next;
+    }
+    printf("\n");
+}
+void afficher_couche(Liste *couche) {
+    if (couche == NULL) {
+        printf("La couche est vide.\n");
+        return;
+    }
+
+    int index = 0;
+    while (couche != NULL) {
+        printf("Neurone %d:\n", index++);
+        afficher_neurone((Neurone *)couche->data);
+        couche = couche->next;
+    }
+}
+void afficher_reseau(Liste *reseau) {
+    if (reseau == NULL) {
+        printf("Le réseau est vide.\n");
+        return;
+    }
+
+    int index_couche = 0;
+    while (reseau != NULL) {
+        printf("Couche %d:\n", index_couche++);
+        afficher_couche((Liste *)reseau->data);
+        reseau = reseau->next;
+    }
+}
 
 // Fonction pour construire le réseau multi-couches (A ET (NON B) ET C) OU (A ET (NON C))
-Liste* CreerResNeurMulticouches(int nombre_entrees) {
-    Liste *reseau = NULL;
-    Liste *couche=NULL;
-    // Couche 1 : Neurones NOT pour B et C
-    Neurone *neuroneNotB = ReseauNot();  // Neurone pour NOT B
-    Neurone *neuroneNotC = ReseauNot();  // Neurone pour NOT C
-    add_queue(&couche, neuroneNotB, sizeof(Neurone));
-    add_queue(&couche, neuroneNotC, sizeof(Neurone));
+Liste* CreerResNeurMulticouches() {
+    Liste *poid_n1 = NULL;
+    for(int i=0 ;i<3;i++){
+        if(i==0){
+            add_queue(&poid_n1, &(int){1}, sizeof(int));
+        }
+        else{
+            add_queue(&poid_n1,&(int){0}, sizeof(int));
+        }
+    }
+    Neurone *n1 = InitNeur(3,poid_n1,1);
+    Liste *poid_n2 = NULL;
+    for(int i=0 ;i<3;i++){
+        if(i==1){
+            add_queue(&poid_n2,&(int){1}, sizeof(int));
+        }
+        else{
+            add_queue(&poid_n2,&(int){0}, sizeof(int));
+        }
+    }
+    Neurone *n2 = InitNeur(3,poid_n2,-1);
+    Liste *poid_n3 = NULL;
+    for(int i=0 ;i<3;i++){
+        if(i==2){
+            add_queue(&poid_n3,&(int){1}, sizeof(int));
+        }
+        else{
+            add_queue(&poid_n3,&(int){0}, sizeof(int));
+        }
+    }
+    Neurone *n3 = InitNeur(3,poid_n3,1);
+    Liste *poid_n4 = NULL;
+    for(int i=0 ;i<3;i++){
+        if(i==2){
+            add_queue(&poid_n4,&(int){1}, sizeof(int));
+        }
+        else{
+            add_queue(&poid_n4,&(int){0}, sizeof(int));
+        }
+    }
+    Neurone *n4 = InitNeur(3,poid_n4,-1);
+    Liste *c1 = NULL;
 
-    add_queue(&reseau,couche, sizeof(Liste));
-    couche=NULL;
-    // Couche 2 : Neurones AND pour (A ET (NON B) ET C) et (A ET (NON C))
-    Neurone *neuroneEt1 = ReseauEt(3);  // Neurone pour (A ET (NON B) ET C)
-    Neurone *neuroneEt2 = ReseauEt(3);  // Neurone pour (A ET (NON C))
-    add_queue(&couche, neuroneEt1, sizeof(Neurone));
-    add_queue(&couche, neuroneEt2, sizeof(Neurone));
-
-    add_queue(&reseau,couche, sizeof(Liste));
-    couche=NULL;
-    // Couche 3 : Neurone OR pour (A ET (NON B) ET C) OU (A ET (NON C))
-    Neurone *neuroneOr = ReseauOu(2);   // Neurone OR avec 2 entrées
-    add_queue(&couche, neuroneOr, sizeof(Neurone));
-    add_queue(&reseau,couche, sizeof(Liste));
-
-
-    return reseau;
+    add_queue(&c1,n1, sizeof(Neurone));
+    add_queue(&c1,n2, sizeof(Neurone));
+    add_queue(&c1,n3, sizeof(Neurone));
+    add_queue(&c1,n4, sizeof(Neurone));
+    poid_n1 = NULL;
+    poid_n2 = NULL;
+    for(int i=0 ;i<4;i++){
+        if(i<3){
+            add_queue(&poid_n1,&(int){1}, sizeof(int));
+        }
+        else{
+            add_queue(&poid_n1,&(int){0}, sizeof(int));
+        }
+    }
+    n1 = InitNeur(4,poid_n1,3);
+    for(int i=0 ;i<4;i++){
+        if(i==0 || i ==3){
+            add_queue(&poid_n2,&(int){1}, sizeof(int));
+        }
+        else{
+            add_queue(&poid_n2,&(int){0}, sizeof(int));
+        }
+    }
+    n2 = InitNeur(4,poid_n2,2);
+    Liste *c2 = NULL;
+    add_queue(&c2,n1, sizeof(Neurone));
+    add_queue(&c2,n2, sizeof(Neurone));
+    Liste *c3 = NULL;
+    Neurone *nou= ReseauOu(2);
+    add_queue(&c3, nou, sizeof(Neurone));
+    Liste *reseaux = NULL;
+    add_queue(&reseaux,c1, sizeof(Neurone));
+    add_queue(&reseaux,c2, sizeof(Neurone));
+    add_queue(&reseaux,c3, sizeof(Neurone));
+    return reseaux;
 }

@@ -23,40 +23,19 @@ int main() {
     add_queue(&entrees, &entreeB, sizeof(int));
     add_queue(&entrees, &entreeC, sizeof(int));
 
-    // Définition du nombre de couches et des neurones par couche
-    int nombre_couches = 3;
-    Liste *neurones_par_couche = NULL;
-    int couche1_neurones = 2; // 2 neurones dans la première couche (NOT B, NOT C)
-    int couche2_neurones = 2; // 2 neurones dans la deuxième couche (AND)
-    int couche3_neurones = 1; // 1 neurone dans la troisième couche (OR)
-    add_queue(&neurones_par_couche, &couche1_neurones, sizeof(int));
-    add_queue(&neurones_par_couche, &couche2_neurones, sizeof(int));
-    add_queue(&neurones_par_couche, &couche3_neurones, sizeof(int));
 
-    // Définition des seuils pour chaque couche
-    Liste *seuils = NULL;
-    int seuil1 = 1; // Seuil pour la première couche
-    int seuil2 = 1; // Seuil pour la deuxième couche
-    int seuil3 = 1; // Seuil pour la troisième couche
-    add_queue(&seuils, &seuil1, sizeof(int));
-    add_queue(&seuils, &seuil2, sizeof(int));
-    add_queue(&seuils, &seuil3, sizeof(int));
 
-    // Création du réseau multi-couches
-    Liste *reseau = CreerResNeur(nombre_couches, neurones_par_couche, seuils, 3);
 
     // Test de la propagation avant
-    Liste *sortie = PropagationAvant(reseau, entrees);
+    Liste *sortie = PropagationAvant(CreerResNeurMulticouches(), entrees);
 
     // Affichage de la sortie du réseau
     printf("Sortie du réseau : ");
     afficher_sortie(sortie);
 
     // Libération de la mémoire
-    free(reseau);
     free(entrees);
-    free(neurones_par_couche);
-    free(seuils);
+
 
     return 0;
 }
